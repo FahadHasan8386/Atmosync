@@ -14,7 +14,10 @@ namespace Atmosync.Api.Repository
         public async Task<List<DHTSensor>> GetDHTSensorDataAsync()
         {
             const string sql = "SELECT * FROM DHTSensor";
-            return (await _connection.QueryAsync<DHTSensor>(sql)).ToList();
+            _connection.Open();
+            var data = await _connection.QueryAsync<DHTSensor>(sql);
+            _connection.Close();
+            return data.ToList();
         }
     }
 }
