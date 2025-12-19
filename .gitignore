@@ -1,0 +1,83 @@
+# Build Folders
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio generated files
+.vs/
+.vscode/
+*.userprefs
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+*.dll
+*.exe
+*.pdb
+
+# Publish folders
+publish/
+*.Publish.xml
+
+# Logs
+*.log
+logs/
+*.tlog
+
+# Database and backup files
+*.mdf
+*.ldf
+*.bak
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+*.swp
+
+# Test results
+TestResult*/
+*.TestResults.xml
+
+# Configs with sensitive info
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# System files
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# JetBrains / Rider
+.idea/
+*.iml
+
+# Windows Form Designer autosaves
+*.resources
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Backup files
+*.bak
+*.orig
+
+# Others
+*.DS_Store
