@@ -1,4 +1,4 @@
-﻿namespace Atmosync.Models
+﻿namespace Atmosync.Api.Models
 {
     public class BaseModel
     {
