@@ -10,9 +10,9 @@ namespace Atmosync.Api.Controllers
     {
         private readonly IMQ7SensorService _iMQ7SensorService;
 
-        public MQ7SensorController(IMQ7SensorService service)
+        public MQ7SensorController(IMQ7SensorService iMQ7SensorService)
         {
-            _iMQ7SensorService = service;
+            _iMQ7SensorService = iMQ7SensorService;
         }
 
         // URL: GET https://localhost:7058/api/Iot/GetMQ7Data

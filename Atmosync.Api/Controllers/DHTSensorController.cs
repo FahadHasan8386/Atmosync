@@ -11,9 +11,9 @@ namespace Atmosync.Api.Controllers
     {
         private readonly IDHTSensorService _iDHTSensorService;
 
-        public DHTSensorController(IDHTSensorService service)
+        public DHTSensorController(IDHTSensorService iDHTSensorService)
         {
-            _iDHTSensorService = service;
+            _iDHTSensorService = iDHTSensorService;
         }
 
         // URL: GET https://localhost:7058/api/Iot/GetDHTData
