@@ -1,4 +1,6 @@
-﻿namespace Atmosync.Api.Models.DtoModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Atmosync.Shared.Models.DtoModels
 {
     public class DHTSensorDto : BaseModel
     {

@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Atmosync.Api.Interfaces.IRepositories;
+using Atmosync.Shared.Models.DtoModels;
 using Atmosync.Api.Models.Entities;
 using Dapper;
 
@@ -20,6 +21,15 @@ namespace Atmosync.Api.Repository
             _connection.Close();
             return deposits.ToList();
 
+        }
+        public async Task<long> CreateMQ7SensorDataAsync(MQ7SensorDto mQ7SensorDto)
+        {
+            const string sql = @"INSERT INTO MQ7Sensor (COLevel,  CreatedBy, CreatedAt, InActive)
+                             OUTPUT INSERTED.Id
+                             VALUES (@COLevel, @CreatedBy, @CreatedAt, 0);
+            ";
+            _connection.Open();
+            return await _connection.ExecuteScalarAsync<long>(sql, mQ7SensorDto);
         }
     }
 }

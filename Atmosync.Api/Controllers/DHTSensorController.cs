@@ -1,4 +1,5 @@
 ﻿using Atmosync.Api.Interfaces.IServices;
+using Atmosync.Shared.Models.DtoModels;
 using Atmosync.Api.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,21 @@ namespace Atmosync.Api.Controllers
             return Ok(data);
         }
 
-        
+        [HttpPost("CreateDHTData")]
+        public async Task<IActionResult> Create([FromBody] DHTSensorDto dto)
+        {
+            if (dto == null) return BadRequest("Invalid data");
+
+            try
+            {
+                var id = await _iDHTSensorService.CreateDHTSensorDataAsync(dto);
+                return Ok(new { Message = "Data saved successfully", Id = id });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Atmosync.Api.Interfaces.IRepositories;
 using Atmosync.Api.Interfaces.IServices;
+using Atmosync.Shared.Models.DtoModels;
 using Atmosync.Api.Models.Entities;
+using Atmosync.Api.Repository;
 
 namespace Atmosync.Api.Services
 {
@@ -14,5 +16,10 @@ namespace Atmosync.Api.Services
         {
             return await _iMQ7SensorRepository.GetMQ7SensorDataAsync();
         }
+        public async Task<long> CreateMQ7SensorDataAsync(MQ7SensorDto mQ7SensorDto)
+        {
+            return await _iMQ7SensorRepository.CreateMQ7SensorDataAsync(mQ7SensorDto);
+        }
     }
 }
+  

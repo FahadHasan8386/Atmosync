@@ -1,5 +1,6 @@
 ﻿using Atmosync.Api.Interfaces.IRepositories;
 using Atmosync.Api.Interfaces.IServices;
+using Atmosync.Shared.Models.DtoModels;
 using Atmosync.Api.Models.Entities;
 
 namespace Atmosync.Api.Services
@@ -13,6 +14,14 @@ namespace Atmosync.Api.Services
         public async Task<List<DHTSensor>> GetDHTSensorDataAsync()
         {
             return await _iDHTSensorRepository.GetDHTSensorDataAsync();
+        }
+        public async Task<long> CreateDHTSensorDataAsync(DHTSensorDto dHTSensorDto)
+        {
+
+            if (dHTSensorDto.Temperature > 100 || dHTSensorDto.Temperature < -50)
+                throw new Exception("Invalid temperature reading.");
+
+            return await _iDHTSensorRepository.CreateDHTSensorDataAsync(dHTSensorDto);
         }
 
     }

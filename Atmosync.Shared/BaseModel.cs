@@ -1,4 +1,4 @@
-﻿namespace Atmosync.Api.Models
+﻿namespace Atmosync.Shared.Models.DtoModels
 {
     public class BaseModel
     {
