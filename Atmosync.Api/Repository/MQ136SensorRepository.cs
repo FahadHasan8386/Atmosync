@@ -32,6 +32,18 @@ namespace Atmosync.Api.Repository
             _connection.Open();
             return await _connection.ExecuteScalarAsync<long>(sql, mQ136SensorDto);
         }
+
+        public async Task<int> DeleteMQ136SensorDataAsync(long mQ136Id)
+        {
+            var sql = @"DELETE FROM MQ136Sensor WHERE Id = @Id";
+            _connection.Open();
+            var result = await _connection.ExecuteAsync(sql, new
+            {
+                @Id = mQ136Id
+            });
+            _connection.Close();
+            return result;
+        }
     }
 }
   

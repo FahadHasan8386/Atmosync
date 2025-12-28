@@ -16,9 +16,19 @@ namespace Atmosync.Api.Services
         {
             return await _iMQ7SensorRepository.GetMQ7SensorDataAsync();
         }
-        public async Task<long> CreateMQ7SensorDataAsync(MQ7SensorDto mQ7SensorDto)
+        public async Task<long> CreateMQ7SensorAsync(MQ7SensorDto mQ7SensorDto)
         {
             return await _iMQ7SensorRepository.CreateMQ7SensorDataAsync(mQ7SensorDto);
+        }
+
+        public async Task<int> DeleteMQ7Async(long mQ7Id)
+        {
+            if (mQ7Id <= 0)
+            {
+                throw new ArgumentException("Invalid MQ7 ID.");
+            }
+
+            return await _iMQ7SensorRepository.DeleteMQ7SensorDataAsync(mQ7Id);
         }
     }
 }

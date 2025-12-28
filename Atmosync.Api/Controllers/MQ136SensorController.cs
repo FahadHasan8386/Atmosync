@@ -1,4 +1,5 @@
 ﻿using Atmosync.Api.Interfaces.IServices;
+using Atmosync.Api.Services;
 using Atmosync.Shared.Models.DtoModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,6 +38,20 @@ namespace Atmosync.Api.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        [HttpDelete("DeleteMQ136Data/{id}")]
+        public async Task<IActionResult> DeleteMQ136Async(long id)
+        {
+            if (id <= 0)
+                return BadRequest("Invalid MQ136 ID.");
+
+            var result = await _iMQ136SensorService.DeleteMQ136Async(id);
+
+            if (result == 0)
+                return NotFound("MQ136 data not found.");
+
+            return Ok("MQ136 data deleted successfully.");
         }
     }
 }

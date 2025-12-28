@@ -31,5 +31,17 @@ namespace Atmosync.Api.Repository
             _connection.Open();
             return await _connection.ExecuteScalarAsync<long>(sql, mQ7SensorDto);
         }
+
+        public async Task<int> DeleteMQ7SensorDataAsync(long mQ7Id)
+        {
+            var sql = @"DELETE FROM MQ7Sensor WHERE Id = @Id";
+            _connection.Open();
+            var result = await _connection.ExecuteAsync(sql, new
+            {
+                @Id = mQ7Id
+            });
+            _connection.Close();
+            return result;
+        }
     }
 }

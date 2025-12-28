@@ -32,13 +32,27 @@ namespace Atmosync.Api.Controllers
 
             try
             {
-                var id = await _iMQ7SensorService.CreateMQ7SensorDataAsync(mQ7SensorDto);
+                var id = await _iMQ7SensorService.CreateMQ7SensorAsync(mQ7SensorDto);
                 return Ok(new { Message = "Data saved successfully", Id = id });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        [HttpDelete("DeleteMQ7Data/{id}")]
+        public async Task<IActionResult> DeleteMQ7Async(long id)
+        {
+            if (id <= 0)
+                return BadRequest("Invalid MQ7 ID.");
+
+            var result = await _iMQ7SensorService.DeleteMQ7Async(id);
+
+            if (result == 0)
+                return NotFound("MQ7 data not found.");
+
+            return Ok("MQ7 data deleted successfully.");
         }
     }
 }

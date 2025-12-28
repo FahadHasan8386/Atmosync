@@ -7,5 +7,6 @@ namespace Atmosync.Api.Interfaces.IRepositories
     {
         Task<List<MQ7Sensor>> GetMQ7SensorDataAsync();
         Task<long> CreateMQ7SensorDataAsync(MQ7SensorDto mQ7SensorDto);
+        Task<int> DeleteMQ7SensorDataAsync(long mQ7Id);
     }
 }

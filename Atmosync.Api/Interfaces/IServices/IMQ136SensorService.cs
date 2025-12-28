@@ -7,5 +7,6 @@ namespace Atmosync.Api.Interfaces.IServices
     {
         Task<List<MQ136Sensor>> GetMQ136SensorDataAsync();
         Task<long> CreateMQ136SensorDataAsync(MQ136SensorDto mQ136SensorDto);
+        Task<int> DeleteMQ136Async(long mQ136Id);
     }
 }
