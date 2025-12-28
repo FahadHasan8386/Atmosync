@@ -30,10 +30,12 @@ builder.Services.AddScoped<System.Data.IDbConnection>(sp =>
 // Register Services
 builder.Services.AddScoped<IDHTSensorService, DHTSensorService>();
 builder.Services.AddScoped<IMQ7SensorService, MQ7SensorService>();
+builder.Services.AddScoped<IMQ136SensorService, MQ136SensorService>();
 
 // Register Repositories
 builder.Services.AddScoped<IDHTSensorRepository, DHTSensorRepository>();
 builder.Services.AddScoped<IMQ7SensorRepository, MQ7SensorRepository>();
+builder.Services.AddScoped<IMQ136SensorRepository, MQ136SensorRepository>();
 
 
 var app = builder.Build();

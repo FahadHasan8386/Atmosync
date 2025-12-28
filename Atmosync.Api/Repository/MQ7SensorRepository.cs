@@ -17,13 +17,13 @@ namespace Atmosync.Api.Repository
             const string sql = "SELECT * FROM MQ7Sensor";
 
             _connection.Open();
-            var deposits = await _connection.QueryAsync<MQ7Sensor>(sql);
+            var result = await _connection.QueryAsync<MQ7Sensor>(sql);
             _connection.Close();
-            return deposits.ToList();
+            return result.ToList();
 
         }
         public async Task<long> CreateMQ7SensorDataAsync(MQ7SensorDto mQ7SensorDto)
-        {
+        {  
             const string sql = @"INSERT INTO MQ7Sensor (COLevel,  CreatedBy, CreatedAt, InActive)
                              OUTPUT INSERTED.Id
                              VALUES (@COLevel, @CreatedBy, @CreatedAt, 0);

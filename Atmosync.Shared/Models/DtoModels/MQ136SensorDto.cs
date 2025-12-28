@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Atmosync.Shared.Models.DtoModels
 {
-    internal class MQ136SensorDto
+    public class MQ136SensorDto : BaseModel
     {
+        public long Id { get; set; }
+        public int H2SLevel { get; set; }
     }
 }
