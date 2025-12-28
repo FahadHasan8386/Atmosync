@@ -1,4 +1,4 @@
-﻿namespace Atmosync.Models.ViewModels
+﻿namespace Atmosync.Shared.Models.ViewModels
 {
     public class DHTSensorVIewModel
     {

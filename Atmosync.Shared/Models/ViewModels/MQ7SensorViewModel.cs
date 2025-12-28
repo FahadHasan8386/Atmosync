@@ -1,4 +1,4 @@
-﻿namespace Atmosync.Api.Models.ViewModels
+﻿namespace Atmosync.Shared.Models.ViewModels
 {
     public class MQ7SensorViewModel
     {
