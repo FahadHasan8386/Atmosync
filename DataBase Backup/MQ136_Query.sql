@@ -1,0 +1,12 @@
+CREATE TABLE MQ136Sensor(
+	Id BIGINT IDENTITY(1,1) PRIMARY KEY,
+
+    H2SLevel INT NOT NULL,   -- Hydrogen Sulfide level
+
+    CreatedBy NVARCHAR(100) NOT NULL DEFAULT 'Fahad',
+    CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    InActive BIT NOT NULL DEFAULT 0,
+
+    ModifiedBy NVARCHAR(100) NULL,
+    ModifiedAt DATETIME2 NULL
+);

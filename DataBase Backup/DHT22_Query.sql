@@ -1,0 +1,12 @@
+CREATE TABLE DHTSensor (
+
+    Id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    Temperature FLOAT NOT NULL,
+    Humidity FLOAT NOT NULL,  
+  
+    CreatedBy NVARCHAR(100) NOT NULL DEFAULT 'Fahad',
+    CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    InActive BIT NOT NULL DEFAULT 0,
+    ModifiedBy NVARCHAR(100) NULL,
+    ModifiedAt DATETIME2 NULL
+);
