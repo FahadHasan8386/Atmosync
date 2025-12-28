@@ -24,5 +24,16 @@ namespace Atmosync.Api.Services
             return await _iDHTSensorRepository.CreateDHTSensorDataAsync(dHTSensorDto);
         }
 
+
+        public async Task<int> DeleteDHTAsync(long dhtId)
+        {
+            if (dhtId <= 0)
+            {
+                throw new ArgumentException("Invalid DHT ID.");
+            }
+
+            return await _iDHTSensorRepository.DeleteDHTSensorDataAsync(dhtId);
+        }
+
     }
 }

@@ -41,5 +41,20 @@ namespace Atmosync.Api.Controllers
             }
         }
 
+        [HttpDelete("DeleteDHTData/{id}")]
+        public async Task<IActionResult> DeleteDHTAsync(long id)
+        {
+            if (id <= 0)
+                return BadRequest("Invalid DHT ID.");
+
+            var result = await _iDHTSensorService.DeleteDHTAsync(id);
+
+            if (result == 0)
+                return NotFound("DHT data not found.");
+
+            return Ok("DHT data deleted successfully.");
+        }
+
+
     }
 }

@@ -7,5 +7,7 @@ namespace Atmosync.Api.Interfaces.IRepositories
     {
         Task<List<DHTSensor>> GetDHTSensorDataAsync();
         Task<long> CreateDHTSensorDataAsync(DHTSensorDto dHTSensorDto);
+
+        Task<int> DeleteDHTSensorDataAsync(long dhtId);
     }
 }

@@ -30,5 +30,18 @@ namespace Atmosync.Api.Repository
             _connection.Open();
             return await _connection.ExecuteScalarAsync<long>(sql, dHTSensorDto);
         }
+
+        public async Task<int> DeleteDHTSensorDataAsync(long dhtId)
+        {
+            var sql = @"DELETE FROM DHTSensor WHERE Id = @Id";
+            _connection.Open();
+            var result = await _connection.ExecuteAsync(sql, new
+            {
+                @Id = dhtId
+            });
+            _connection.Close();
+            return result;
+        }
+
     }
 }
