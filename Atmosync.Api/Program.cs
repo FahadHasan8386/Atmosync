@@ -40,6 +40,8 @@ builder.Services.AddScoped<IMQ136SensorRepository, MQ136SensorRepository>();
 
 var app = builder.Build();
 
+app.UseCors("AllowAll");
+
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
