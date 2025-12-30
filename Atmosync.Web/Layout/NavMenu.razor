@@ -8,24 +8,43 @@
 </div>
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="nav flex-column">
+    <nav class="nav flex-column pt-2">
+
+        <!-- Home -->
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            <NavLink class="nav-link d-flex align-items-center" href="/" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill me-2"></span>
+                <span>Home</span>
             </NavLink>
         </div>
+
+        <!-- DHT22 -->
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link d-flex align-items-center" href="/app/dht22">
+                <span class="bi bi-thermometer-half me-2 text-primary"></span>
+                <span>DHT22 Sensor</span>
             </NavLink>
         </div>
+
+        <!-- MQ7 -->
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+            <NavLink class="nav-link d-flex align-items-center" href="/app/mq7">
+                <span class="bi bi-cloud-haze2-fill me-2 text-warning"></span>
+                <span>MQ7 (CO Gas)</span>
             </NavLink>
         </div>
+
+        <!-- MQ136 -->
+        <div class="nav-item px-3">
+            <NavLink class="nav-link d-flex align-items-center" href="/app/mq136">
+                <span class="bi bi-shield-exclamation me-2 text-info"></span>
+                <span>MQ136 Gas</span>
+            </NavLink>
+        </div>
+
     </nav>
 </div>
+
 
 @code {
     private bool collapseNavMenu = true;

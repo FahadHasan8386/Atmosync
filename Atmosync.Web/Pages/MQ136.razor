@@ -1,0 +1,47 @@
+﻿@page "/app/mq136"
+
+<h1>MQ136 Sensor Details</h1>
+
+<div class="card-body">
+	<div class="table-responsive">
+
+		@if (IsLoading)
+		{
+			<p style="text-align: center; padding: 8px 0;">Loading...</p>
+		}
+		else
+		{
+			<table class="table table-hover align-middle">
+				<thead class="table-light">
+					<tr>
+						<th>#</th>
+						<th>MQ136 ID</th>
+						<th>H2S Level (PPM)</th>
+						<th>Created At</th>
+						<th>Created By</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>MQ136-001</td>
+						<td>120</td>
+						<td>28 Oct, 2025</td>
+						<td>Fahad</td>
+						<td>
+							<span class="badge bg-success">Safe</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		}
+
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public bool IsLoading { get; set; } = false;
+}
