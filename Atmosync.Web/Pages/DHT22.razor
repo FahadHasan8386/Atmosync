@@ -1,3 +1,104 @@
 ﻿@page "/app/dht22"
 
+<h1>DHT22 Sensor Details</h1>
 
+<div class="card-body">
+	<div class="table-responsive">
+
+		@if (IsLoading)
+		{
+			<p style="text-align: center; padding: 8px 0;">Loading...</p>
+		}
+		else
+		{
+			<table class="table table-hover align-middle">
+				<thead class="table-light">
+					<tr>
+						<th>#</th>
+						<th>DHT22 ID</th>
+						<th>Temperature</th>
+						<th>Humidity</th>
+						<th>Created At</th>
+						<th>Created By</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@if (DHTSensorViewModel.Any())
+					{
+						var index = 1;
+
+						foreach (var item in DHTSensorViewModel)
+						{
+							<tr>
+								<td>@index</td>
+								<td>@item.Id</td>
+								<td>@item.Temperature</td>
+								<td>@item.Humidity</td>
+								<td>@item.CreatedAt.ToString("dd MMM, yyyy")</td>
+								<td>@item.CreatedBy</td>
+								<td>
+									<button class="btn btn-sm btn-outline-danger"
+											@click="() => DeleteSensor(item.Id)">
+										<i class="bi bi-trash"></i>
+									</button>
+								</td>
+							</tr>
+
+							index++;
+						}
+					}
+					else
+					{
+						<tr>
+							<td colspan="7" class="text-center text-muted">
+								No data found
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+
+	</div>
+</div>
+
+@code {
+
+	private bool IsLoading { get; set; } = false;
+
+	private List<DHTSensorViewModel> DHTSensorViewModel { get; set; } = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadSensorData();
+	}
+
+	private async Task LoadSensorData()
+	{
+		IsLoading = true;
+		try
+		{
+			DHTSensorViewModel = await DHT22ApiService.GetDHTDataAsync();
+		}
+		finally
+		{
+			IsLoading = false;
+		}
+	}
+
+	// private async Task DeleteSensor(long id)
+	// {
+	// 	var success = await DHT22ApiService.DeleteDHTAsync(id);
+
+	// 	if (success)
+	// 	{
+	// 		var item = DHTSensorViewModel.FirstOrDefault(x => x.Id == id);
+	// 		if (item != null)
+	// 		{
+	// 			DHTSensorViewModel.Remove(item);
+	// 		}
+	// 	}
+	// }
+}

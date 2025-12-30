@@ -16,24 +16,45 @@
 					<tr>
 						<th>#</th>
 						<th>MQ136 ID</th>
-						<th>H2S Level (PPM)</th>
+						<th>H2S Level</th>
 						<th>Created At</th>
 						<th>Created By</th>
-						<th>Status</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>MQ136-001</td>
-						<td>120</td>
-						<td>28 Oct, 2025</td>
-						<td>Fahad</td>
-						<td>
-							<span class="badge bg-success">Safe</span>
-						</td>
-					</tr>
+					@if (MQ136SensorViewModel.Any())
+					{
+						var index = 1;
+
+						foreach (var item in MQ136SensorViewModel)
+						{
+							<tr>
+								<td>@index</td>
+								<td>@item.Id</td>
+								<td>@item.H2SLevel</td>
+								<td>@item.CreatedAt.ToString("dd MMM, yyyy")</td>
+								<td>@item.CreatedBy</td>
+								<td>
+									<button class="btn btn-sm btn-outline-danger"
+											@click="() => DeleteSensor(item.Id)">
+										<i class="bi bi-trash"></i>
+									</button>
+								</td>
+							</tr>
+
+							index++;
+						}
+					}
+					else
+					{
+						<tr>
+							<td colspan="7" class="text-center text-muted">
+								No data found
+							</td>
+						</tr>
+					}
 				</tbody>
 			</table>
 		}
@@ -42,6 +63,26 @@
 </div>
 
 @code {
-	[Parameter]
-	public bool IsLoading { get; set; } = false;
+
+	private bool IsLoading { get; set; } = false;
+
+	private List<MQ136SensorViewModel> MQ136SensorViewModel { get; set; } = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadSensorData();
+	}
+
+	private async Task LoadSensorData()
+	{
+		IsLoading = true;
+		try
+		{
+			MQ136SensorViewModel = await MQ136ApiService.GetMQ136DataAsync();
+		}
+		finally
+		{
+			IsLoading = false;
+		}
+	}
 }

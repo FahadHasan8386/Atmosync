@@ -1,6 +1,10 @@
-﻿namespace Atmosync.Shared.Models.ViewModels
+﻿using Atmosync.Shared.Models.DtoModels;
+
+namespace Atmosync.Shared.Models.ViewModels
 {
-    public class MQ7SensorViewModel
+    public sealed class MQ7SensorViewModel : BaseModel
     {
+        public long Id { get; set; }
+        public int COLevel { get; set; }
     }
 }

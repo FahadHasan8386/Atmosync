@@ -1,11 +1,12 @@
-﻿namespace Atmosync.Shared.Models.ViewModels
+﻿using Atmosync.Shared.Models.DtoModels;
+
+namespace Atmosync.Shared.Models.ViewModels
 {
-    public class DHTSensorVIewModel
+    public sealed class DHTSensorViewModel : BaseModel
     {
         public long Id { get; set; }
-        public string TemperatureDisplay { get; set; } = string.Empty;
-        public string HumidityDisplay { get; set; } = string.Empty;
-        public string Timestamp { get; set; } = string.Empty;
-        public string Status { get; set; } = "Normal";
+        public float Temperature { get; set; }
+        public float Humidity { get; set; }
+
     }
 }

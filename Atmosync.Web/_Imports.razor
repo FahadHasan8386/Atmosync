@@ -1,5 +1,6 @@
 ﻿@using System.Net.Http
 @using System.Net.Http.Json
+@using Atmosync.Web.Service
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
@@ -8,3 +9,8 @@
 @using Microsoft.JSInterop
 @using Atmosync.Web
 @using Atmosync.Web.Layout
+@using Atmosync.Shared.Models.ViewModels
+
+@inject DHT22ApiService DHT22ApiService
+@inject MQ136ApiService MQ136ApiService
+@inject MQ7ApiService MQ7ApiService
