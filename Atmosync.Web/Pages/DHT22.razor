@@ -24,7 +24,7 @@
 					</tr>
 				</thead>
 
-				<tbody>
+				<tbody>  
 					@if (DHTSensorViewModel.Any())
 					{
 						var index = 1;
@@ -40,7 +40,7 @@
 								<td>@item.CreatedBy</td>
 								<td>
 									<button class="btn btn-sm btn-outline-danger"
-											@click="() => DeleteSensor(item.Id)">
+											@onclick="() => DeleteSensor(item.Id)">
 										<i class="bi bi-trash"></i>
 									</button>
 								</td>
@@ -72,33 +72,27 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		await LoadSensorData();
-	}
-
-	private async Task LoadSensorData()
-	{
 		IsLoading = true;
-		try
+		await LoadSensorDataAsync();
+		IsLoading = false;
+	}
+
+	private async Task LoadSensorDataAsync()
+	{
+		var data = await DHT22ApiService.GetDHTDataAsync();
+
+		if (data != null)
 		{
-			DHTSensorViewModel = await DHT22ApiService.GetDHTDataAsync();
-		}
-		finally
-		{
-			IsLoading = false;
+			DHTSensorViewModel = data.OrderByDescending(x => x.CreatedAt).ToList();
 		}
 	}
 
-	// private async Task DeleteSensor(long id)
-	// {
-	// 	var success = await DHT22ApiService.DeleteDHTAsync(id);
+	private async Task DeleteSensor(long dhtId)
+	{
+		var response = await DHT22ApiService.DeleteDHTAsync(dhtId);
 
-	// 	if (success)
-	// 	{
-	// 		var item = DHTSensorViewModel.FirstOrDefault(x => x.Id == id);
-	// 		if (item != null)
-	// 		{
-	// 			DHTSensorViewModel.Remove(item);
-	// 		}
-	// 	}
-	// }
+		if (response.IsSuccessStatusCode)
+			await LoadSensorDataAsync();
+		StateHasChanged();
+	}
 }

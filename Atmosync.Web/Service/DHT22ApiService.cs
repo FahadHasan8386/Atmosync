@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using Atmosync.Shared;
 using Atmosync.Shared.Models.DtoModels;
 using Atmosync.Shared.Models.ViewModels;
 
@@ -25,10 +26,9 @@ namespace Atmosync.Web.Service
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task DeleteDHTAsync(long dhtId)
+        public async Task<HttpResponseMessage> DeleteDHTAsync(long dhtId)
         {
-            var response = await _httpClient.DeleteAsync($"DHTSensor/DeleteDHTData/{dhtId}");
-            response.EnsureSuccessStatusCode();
+            return await _httpClient.DeleteAsync($"DHTSensor/DeleteDHTData/{dhtId}");
         }
     }
 }

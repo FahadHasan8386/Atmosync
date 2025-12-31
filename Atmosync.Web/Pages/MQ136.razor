@@ -38,7 +38,7 @@
 								<td>@item.CreatedBy</td>
 								<td>
 									<button class="btn btn-sm btn-outline-danger"
-											@click="() => DeleteSensor(item.Id)">
+											@onclick="() => DeleteMQ136Sensor(item.Id)">
 										<i class="bi bi-trash"></i>
 									</button>
 								</td>
@@ -70,19 +70,27 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		await LoadSensorData();
+		IsLoading = true;
+		await LoadMQ136SensorDataAsync();
+		IsLoading = false;
 	}
 
-	private async Task LoadSensorData()
+	private async Task LoadMQ136SensorDataAsync()
 	{
-		IsLoading = true;
-		try
+		var data = await MQ136ApiService.GetMQ136DataAsync();
+
+		if(data != null)
 		{
-			MQ136SensorViewModel = await MQ136ApiService.GetMQ136DataAsync();
+			MQ136SensorViewModel = data.OrderByDescending(x => x.CreatedAt).ToList();
 		}
-		finally
-		{
-			IsLoading = false;
-		}
+	}
+
+	private async Task DeleteMQ136Sensor(long mQ136Id)
+	{
+		var response = await MQ136ApiService.DeleteMQ136Async(mQ136Id);
+
+		if (response.IsSuccessStatusCode)
+			await LoadMQ136SensorDataAsync();
+		StateHasChanged();
 	}
 }

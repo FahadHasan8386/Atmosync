@@ -40,18 +40,12 @@ namespace Atmosync.Api.Controllers
             }
         }
 
-        [HttpDelete("DeleteMQ136Data/{id}")]
-        public async Task<IActionResult> DeleteMQ136Async(long id)
+        [HttpDelete("DeleteMQ136Data/{mQ136Id}")]
+        public async Task<IActionResult> DeleteMQ136Async(long mQ136Id)
         {
-            if (id <= 0)
-                return BadRequest("Invalid MQ136 ID.");
-
-            var result = await _iMQ136SensorService.DeleteMQ136Async(id);
-
-            if (result == 0)
-                return NotFound("MQ136 data not found.");
-
-            return Ok("MQ136 data deleted successfully.");
+            if (mQ136Id == 0)
+                return BadRequest();
+            return Ok(await _iMQ136SensorService.DeleteMQ136Async(mQ136Id));
         }
     }
 }

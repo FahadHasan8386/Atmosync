@@ -15,7 +15,7 @@
 				<thead class="table-light">
 					<tr>
 						<th>#</th>
-						<th>MQ136 ID</th>
+						<th>MQ7 ID</th>
 						<th>CO Level</th>
 						<th>Created At</th>
 						<th>Created By</th>
@@ -38,7 +38,7 @@
 								<td>@item.CreatedBy</td>
 								<td>
 									<button class="btn btn-sm btn-outline-danger"
-											@click="() => DeleteSensor(item.Id)">
+											@onclick="() => DeleteMQ7Sensor(item.Id)">
 										<i class="bi bi-trash"></i>
 									</button>
 								</td>
@@ -70,19 +70,27 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		await LoadSensorData();
+		IsLoading = true;
+		await LoadMQ7SensorData();
+		IsLoading = false;
 	}
 
-	private async Task LoadSensorData()
+	private async Task LoadMQ7SensorData()
 	{
-		IsLoading = true;
-		try
+		var data = await MQ7ApiService.GetMQ7DataAsync();
+
+		if (data != null)
 		{
-			MQ7SensorViewModel = await MQ7ApiService.GetMQ7DataAsync();
+			MQ7SensorViewModel = data.OrderByDescending(x => x.CreatedAt).ToList();
 		}
-		finally
-		{
-			IsLoading = false;
-		}
+	}
+
+	private async Task DeleteMQ7Sensor(long mQ7Id)
+	{
+		var response = await MQ7ApiService.DeleteMQ7Async(mQ7Id);
+
+		if (response.IsSuccessStatusCode)
+			await LoadMQ7SensorData();
+		StateHasChanged();
 	}
 }
