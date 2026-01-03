@@ -1,1 +1,100 @@
-﻿@page "/app/home"
+﻿@page "/"
+
+
+<div class="container mt-4">
+
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white fw-bold">
+            🌡 DHT22 Temperature Overview
+        </div>
+
+        <div class="card-body">
+            @if (IsLoading)
+            {
+                <p class="text-center text-muted">Loading chart...</p>
+            }
+            else
+            {<div class="row">
+                <div class="col col-md-6 mb-3">
+                        <h4 class="my-3 font-monospace text-center">Temprature Chart</h4>
+                        <canvas id="tempChart" width="350" height="170" class="img-fluid"></canvas>
+                </div>
+                <div class="col col-md-6 mb-3">
+                        <h4 class="my-3 font-monospace text-center">Humidity Chart</h4>
+                        <canvas id="humidityChart" width="350" height="170" class="img-fluid"></canvas>
+                </div>
+                <div class="col col-md-6 mb-3">
+                        <h4 class="my-3 font-monospace text-center">Temprature Chart</h4>
+                        <canvas id="tempChart3" width="350" height="170" class="img-fluid"></canvas>
+                </div>
+                <div class="col col-md-6 mb-3">
+                        <h4 class="my-3 font-monospace text-center">Temprature Chart</h4>
+                        <canvas id="tempChart4" width="350" height="170" class="img-fluid"></canvas>
+                </div>
+            </div>
+               
+            }
+        </div>
+
+        @* <div class="card-footer text-end">
+            <button class="btn btn-sm btn-outline-primary" @onclick="LoadChart">
+                Refresh
+            </button>
+        </div> *@
+    </div>
+
+</div>
+
+@code {
+
+    private bool IsLoading = false;
+
+    private List<DHTSensorViewModel> DHTSensorViewModel = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        IsLoading = true;
+        await LoadChart();
+        IsLoading = false;
+    }
+
+    private async Task LoadChart()
+    {
+        var data = await DHT22ApiService.GetDHTDataAsync();
+
+        if (data is not null)
+        {
+            // Latest 10 data (same logic as table)
+            DHTSensorViewModel = data
+                .OrderByDescending(x => x.CreatedAt)
+                .Take(10)
+                .OrderBy(x => x.CreatedAt)
+                .ToList();
+
+            var labels = DHTSensorViewModel
+                .Select(x => x.CreatedAt.ToString("HH:mm"))
+                .ToArray();
+
+            var tempValues = DHTSensorViewModel
+                .Select(x => (int)x.Temperature)
+                .ToArray();
+
+            var humidityValues = DHTSensorViewModel
+            .Select(x => (int)x.Humidity)
+            .ToArray();
+
+            await jSRuntime.InvokeVoidAsync(
+                "renderTempChart",
+                labels,
+                tempValues
+            );
+
+
+            await jSRuntime.InvokeVoidAsync(
+               "renderHumidityChart",
+               labels,
+               humidityValues
+           );
+        }
+    }
+}

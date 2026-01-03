@@ -7,9 +7,9 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5033/api/") }); 
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7058/api/") }); 
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://192.168.1.3:9191/api/") });
+//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://192.168.1.3:9191/api/") });
 
 // Register Api services
 builder.Services.AddScoped<DHT22ApiService>();
